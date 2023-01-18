@@ -1,5 +1,6 @@
 package models
 
+import "ApplicationGo/db"
 
 type Produto struct {
 	Id              int
@@ -9,9 +10,9 @@ type Produto struct {
 }
 
 func GetAllProducts() []Produto {
-	db := ConnectDB()
+	db := db.ConnectDB()
 
-	selectAllProducts, err := db.Query("select * from produtos")
+	selectAllProducts, err := db.Query("SELECT * FROM produtos")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -40,6 +41,15 @@ func GetAllProducts() []Produto {
 	return produtos
 }
 
-func ConnectDB() {
-	panic("unimplemented")
+func CriaNovoProduto(nome, descricao string, preco float64, quantidade int) {
+	db := db.ConnectDB()
+
+	insereDadosNoBanco, err := db.Prepare("INSERT INTO produtos(nome, descricao, preco, quantidade) VALUES($1, $2, $3, $4)")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	insereDadosNoBanco.Exec(nome, descricao, preco, quantidade)
+	defer db.Close()
 }
+

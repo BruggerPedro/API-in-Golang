@@ -1,4 +1,4 @@
-module API-in-Golang
+module ApplicationGo
 
 go 1.19
 
