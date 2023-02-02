@@ -10,6 +10,9 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// @title           API de gerenciamento de estoque
+// @version         1.0
+// @description     Uma API que oferece o gerenciamento de estoque de pecas e materiais.
 func main() {
 	err := godotenv.Load()
 	if err != nil {
